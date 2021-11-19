@@ -33,9 +33,13 @@ public class SingleController {
     }
     @RequestMapping(value = "/singleplayer", method = RequestMethod.POST)
     @ResponseBody
-    public String Game(@RequestBody String r,  Model model) {
+    public String Game(@RequestBody String r,  Model model,@AuthenticationPrincipal User user) {
+        int difficult= user.getDifficultAi();
+        if(difficult!=60 || difficult!=30 || difficult!=10){
+            difficult=60;
+        }
         if(ai==null){
-            ai=aiRepo.findByNameAi("BrainAi");
+            ai=aiRepo.findByNameAi(user.getNameAi());
             System.out.println(ai.getList());
         }
         int t=Integer.parseInt(r);
@@ -52,7 +56,7 @@ public class SingleController {
             gameTable.restart();
             return "40";
         }
-        gameTable=ai.makeStep(gameTable);
+        gameTable=ai.makeStep(gameTable,difficult);
         if(gameTable.isWin('2')){
             gameTable.restart();
             gameTable.getUser().def();

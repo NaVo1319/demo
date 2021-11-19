@@ -24,6 +24,8 @@ public class User implements UserDetails {
     private Set<Role> roles;
     private int win;
     private int def;
+    private String nameAi="BrainAi";
+    private int difficultAi=1;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

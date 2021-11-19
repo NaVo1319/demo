@@ -38,10 +38,10 @@ public class AI {
         double oldReward=getReward(state,game);
         list.set(state,oldReward+0.1*(newReward-oldReward));
     }
-    public GameTable makeStep(GameTable gameTable){
+    public GameTable makeStep(GameTable gameTable,int difficult){
         ArrayList<Integer> free= gameTable.getFree();
         int step=0;
-        if((int) (Math.random() * 101)<10){
+        if((int) (Math.random() * 101)<difficult){
             step= free.get((int)(Math.random() * (free.size())));
             gameTable.set(step,'2');
             oldState=getReward(step,gameTable);
