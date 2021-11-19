@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entiy.AI;
 import com.example.demo.entiy.User;
 import com.example.demo.repos.AiRepo;
+import com.example.demo.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,14 @@ import java.util.List;
 public class CreateAiController {
     @Autowired
     AiRepo aiRepo;
+    @Autowired
+    UserRepo userRepo;
     @GetMapping("/createAi")
-    public String createAiGet(Model model){
+    public String createAiGet(Model model,@AuthenticationPrincipal User user){
+        User userBD = userRepo.findById(user.getId()).orElse(new User());
+        model.addAttribute("win",userBD.getWin());
+        model.addAttribute("def",userBD.getDef());
+        model.addAttribute("username",userBD.getUsername());
         model.addAttribute("save_stat",0);
         return "createAi";
     }

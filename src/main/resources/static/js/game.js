@@ -4,7 +4,7 @@ function SingleGame(num){
         document.getElementById(num+"").setAttribute("name","1")
         document.getElementById(num+"").setAttribute("src","img/O.svg")
         $.ajax({
-            url: 'http://localhost:8080/singleplayer',
+            url: 'https://cursework.herokuapp.com/singleplayer',
             type: 'POST',
             data: num+"",
             contentType: 'application/json; charset=utf-8',
@@ -18,8 +18,11 @@ function SingleGame(num){
                         for(j=1;j<4;++j){
                             document.getElementById(i+""+j).setAttribute("name","0")
                             document.getElementById(i+""+j).setAttribute("src","img/cell.svg")
+
                         }
                     }
+                    document.getElementById("message1").innerText="You're Win!";
+                    showModalWin('popupWin')
                 }else if(parseInt(data,10)==40){
                     console.log("Pat")
                     for(i=1;i<4;++i){
@@ -28,6 +31,8 @@ function SingleGame(num){
                             document.getElementById(i+""+j).setAttribute("src","img/cell.svg")
                         }
                     }
+                    document.getElementById("message3").innerText="Dead heat!";
+                    showModalWin('popupPat')
                 }
                 else if(parseInt(data,10)==30){
                     console.log("Ai Win")
@@ -37,6 +42,8 @@ function SingleGame(num){
                             document.getElementById(i+""+j).setAttribute("src","img/cell.svg")
                         }
                     }
+                    document.getElementById("message2").innerText="You're Lose!";
+                    showModalWin('popupLose')
                 }
                 else{
                     console.log(array[parseInt(data,10)])
@@ -47,13 +54,13 @@ function SingleGame(num){
         });
     }
 }
-function showModalWin() {
+function showModalWin(id) {
 
     var darkLayer = document.createElement('div'); // слой затемнения
     darkLayer.id = 'shadow'; // id чтобы подхватить стиль
     document.body.appendChild(darkLayer); // включаем затемнение
 
-    var modalWin = document.getElementById('popupWin'); // находим наше "окно"
+    var modalWin = document.getElementById(id); // находим наше "окно"
     modalWin.style.display = 'block'; // "включаем" его
 
     darkLayer.onclick = function () {  // при клике на слой затемнения все исчезнет

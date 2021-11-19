@@ -22,7 +22,10 @@ public class SettingsController {
     @Autowired
     private UserRepo userRepo;
     @GetMapping("/settings")
-    public String settings(Model model){
+    public String settings(Model model, @AuthenticationPrincipal User user){
+        User userBD = userRepo.findById(user.getId()).orElse(new User());
+        model.addAttribute("win",userBD.getWin());
+        model.addAttribute("def",userBD.getDef());
         List<AI> aiList = aiRepo.findAll();
         model.addAttribute("aiList",aiList);
         model.addAttribute("save_stat",0);

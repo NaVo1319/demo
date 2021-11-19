@@ -4,9 +4,89 @@
 <head>
     <title>Login Page</title>
     <div th:insert="~{header :: head}"></div>
+    <style>
+        .modalwin {
+            height: 200px;
+            width: 100%;
+            background:  green;
+            top: 20%; /* отступ сверху */
+            right: 0;
+            left: 0;
+            margin: 0 auto;
+            z-index:2; /* поверх всех */
+            display: none;  /* сначала невидим */
+            position: fixed; /* фиксированное позиционирование, окно стабильно при прокрутке */
+        }
+        #shadow {
+            position: fixed;
+            width:100%;
+            height:100%;
+            z-index:1; /* поверх всех  кроме окна*/
+            background:#000;
+            opacity: 0.5; /*прозрачность*/
+            left:0;
+            top:0;
+        }
+    </style>
 </head>
 <body>
 <div th:insert="~{header :: navbar}"></div>
+
+
+<div style="text-align: center">
+    <div style="text-align: center" id="popupWin" class="modalwin">
+        <div class="row">
+            <div class="col-4">
+                <img src="/img/icon1.gif" alt="this slowpoke moves"  width="250" />
+            </div>
+            <div class="col-4">
+                <h2 style="margin-top: 50px; text: white" id="message1"> You're Win! </h2>
+                <form action="/singleplayer" method="get">
+                    <button type="submit"  class="btn btn-success">Ok</button>
+                </form>
+            </div>
+            <div class="col-4">
+                <img src="/img/icon2.gif" alt="this slowpoke moves"  width="250" />
+            </div>
+        </div>
+
+    </div>
+
+    <div style="text-align: center;background-color: darkred" id="popupLose" class="modalwin" >
+        <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <h2 style="margin-top: 50px; text: white" id="message2"> You're Win! </h2>
+                <form action="/singleplayer" method="get">
+                    <button type="submit"  class="btn btn-success">Ok</button>
+                </form>
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+
+    </div>
+
+    <div style="text-align: center;background-color: orange" id="popupPat" class="modalwin" >
+        <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <h2 style="margin-top: 50px; text: white" id="message3"> You're Win! </h2>
+                <form action="/singleplayer" method="get">
+                    <button type="submit"  class="btn btn-success">Ok</button>
+                </form>
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
 
 <script src="/js/game.js"></script>
 <div class="container">
