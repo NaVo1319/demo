@@ -31,6 +31,6 @@ public class RegistrationController {
         user.setWin(0);
         user.setDef(0);
         userRepo.save(user);
-        return "redirect: /";
+        return "redirect:/login";
     }
 }

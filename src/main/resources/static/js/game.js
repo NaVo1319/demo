@@ -1,6 +1,9 @@
 function SingleGame(num){
     const array=['11','12','13','21','22','23','31','32','33']
     if(document.getElementById(num+"").getAttribute("name")==="0"){
+        for (i=0;i<array.length;++i){
+            document.getElementById(array[i]+'_').disabled = true
+        }
         document.getElementById(num+"").setAttribute("name","1")
         document.getElementById(num+"").setAttribute("src","img/O.svg")
         $.ajax({
@@ -52,6 +55,9 @@ function SingleGame(num){
                 }
             }
         });
+        for (i=0;i<array.length;++i){
+            document.getElementById(array[i]+'_').disabled = false
+        }
     }
 }
 function showModalWin(id) {
