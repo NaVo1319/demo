@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Login Page</title>
+    <div th:insert="~{header :: head}"></div>
+</head>
+<body>
+<div th:insert="~{header :: navbar}"></div>
+
+
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h3 style="text-align: center">Menu</h3>
+                <div class="d-flex justify-content-end social_icon">
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="/singleplayer" class="btn btn-primary" type="button">Одиночная игра</a>
+                    <a class="btn btn-primary" type="button">Настройка</a>
+                </div>
+            </div>
+            <div class="card-footer">
+                <form th:action="@{/logout}" method="post">
+                    <input class="btn btn-danger" type="submit" value="Выход"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer :: footer-navbar}"></div>
+</body>
+</html>
