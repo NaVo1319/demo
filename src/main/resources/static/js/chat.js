@@ -34,6 +34,7 @@ function disconnect() {
 
 function sendName() {
     stompClient.send("/app/webs", {}, JSON.stringify({'name': $("#name").val()}));
+    $("#name").val("")
 }
 
 function showGreeting(message) {
