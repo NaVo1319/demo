@@ -6,7 +6,6 @@ import com.example.demo.entiy.MessageBD;
 import com.example.demo.entiy.User;
 import com.example.demo.repos.MessageRepo;
 import com.example.demo.repos.UserRepo;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -34,7 +33,7 @@ public class ChatController {
         model.addAttribute("def",userBD.getDef());
         model.addAttribute("username",userBD.getUsername());
         this.user=user;
-        return "/chat/chat";
+        return "chat";
     }
     @MessageMapping("/webs")
     @SendTo("/topic/webs")
