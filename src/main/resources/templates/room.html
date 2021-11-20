@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Login Page</title>
+    <div th:insert="~{header :: head}"></div>
+</head>
+<body>
+<div th:insert="~{header :: navbar}"></div>
+
+
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h3 style="text-align: center">Game <span th:text="nameRoom"></span></h3>
+                <div class="d-flex justify-content-end social_icon">
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2" style="color: azure">
+                    <div>Host name:<span th:text="${host.username}"></span></div>
+                    <div>Join Player:<span th:text="${player.username}"></span></div>
+                </div>
+            </div>
+            <input id="url" type="hidden" th:value="${id}">
+            <div class="card-footer" th:if="${exit}==1">
+                <form  th:action="@{/room/{id}(id=${id})}" method="post">
+                    <input class="btn btn-danger" name="action" type="hidden" value="delete"/>
+                    <input class="btn btn-danger" type="submit" value="Delete room"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer :: footer-navbar}"></div>
+<script>
+    window.setTimeout(function(){
+        console.log("Запрос отправлен")
+        $.ajax({
+            url: 'http://localhost:8080/room/game',
+            type: 'POST',
+            data: "hello",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: true,
+            success: function (data) {
+                console.log(data)
+            }
+        })
+        },5000);
+</script>
+</body>
+</html>

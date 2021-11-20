@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Login Page</title>
+    <div th:insert="~{header :: head}"></div>
+</head>
+<body>
+<div th:insert="~{header :: navbar}"></div>
+
+<script th:src="@{http://localhost:8080/js/game.js}"></script>
+<div class="container">
+    <div class="row" style="background-color: rgba(0,0,0,0.5) !important">
+        <div class="col-12 text-center" th:each="room : ${rooms}">
+            <a th:href="@{/room/{id}(id=${room.id})}" class="btn btn-primary" type="button"><span th:text="${room.id}"></span><span th:text=" ${room.nameRoom}"></span></a>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer :: footer-navbar}"></div>
+</body>
+</html>

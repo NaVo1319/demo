@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Login Page</title>
+    <div th:insert="~{header :: head}"></div>
+    <script src="/js/chat.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{http://localhost:8080/style/chat.css}">
+</head>
+</head>
+<body>
+<div th:insert="~{header :: navbar}"></div>
+<div class="container">
+    <div class="row" style="background-color: rgba(0,0,0,0.5) !important">
+        <div class="col-12 text-center">
+            <div class="card_ card-bordered_">
+                <div class="card-header_">
+                    <script>connect()</script>
+                    <h4 class="card-title_" style="color: azure"><strong>Chat</strong></h4>
+                </div>
+                <div id="conversation" class="ps-container ps-theme-default ps-active-y"  style="overflow-y: scroll !important; height:400px !important;">
+                    <div th:each="mes:${messages}">
+                        <div th:if="${mes.author}==${username}">
+                            <div  class="media media-chat"> <i class="fa fa-user"></i><div class="media-body"> <p th:text="${mes.author+': '+mes.content}"></p> <p class="meta"></p></div></div>
+                        </div>
+                        <div th:if="${mes.author}!=${username}">
+                            <div th:if="${mes.author}!=${username}" class="media media-chat media-chat-reverse"> <i class="fa fa-user"></i><div class="media-body"> <p th:text="${mes.author+': '+mes.content}"></p> <p class="meta"></p></div></div>
+                        </div>
+                    </div>
+                    <div id="greetings">
+                    </div>
+                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                        <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+                        <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
+                    </div>
+                </div>
+                <form class="publisher bt-1 border-light"><i class="fas fa-user"></i>
+                    <input id="name" class="publisher-input" type="text" placeholder="Write something">
+                    <button id="send" class="publisher-btn text-info" type="submit" data-abc="true"><i class="fa fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer :: footer-navbar}"></div>
+</body>
+</html>

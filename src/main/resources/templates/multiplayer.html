@@ -20,17 +20,10 @@
             </div>
             <div class="card-body">
                 <div class="d-grid gap-2">
-                    <a href="/" class="btn btn-primary" type="button">Multiplayer (Coming Soon)</a>
-                    <a href="/singleplayer" class="btn btn-primary" type="button">Singleplayer</a>
-                    <a href="/settings" class="btn btn-primary" type="button">Settings</a>
-                    <a href="/createAi" class="btn btn-primary" type="button">Create AI</a>
-                    <a href="/chat" class="btn btn-primary" type="button">Chat</a>
+                    <a href="/createRoom" class="btn btn-primary" type="button">Create game</a>
+                    <a href="/joinRoom" class="btn btn-primary" type="button">Join to game</a>
+                    <a href="/" class="btn btn-danger" type="button">Back</a>
                 </div>
-            </div>
-            <div class="card-footer">
-                <form th:action="@{/logout}" method="post">
-                    <input class="btn btn-danger" type="submit" value="Exit"/>
-                </form>
             </div>
         </div>
     </div>
