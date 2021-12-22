@@ -23,8 +23,7 @@ public class CreateAiController {
     @GetMapping("/createAi")
     public String createAiGet(Model model,@AuthenticationPrincipal User user){
         User userBD = userRepo.findById(user.getId()).orElse(new User());
-        model.addAttribute("win",userBD.getWin());
-        model.addAttribute("def",userBD.getDef());
+        model.addAttribute("rating",userBD.getRating());
         model.addAttribute("username",userBD.getUsername());
         model.addAttribute("save_stat",0);
         return "createAi";

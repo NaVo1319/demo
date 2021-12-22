@@ -18,16 +18,17 @@
         <div class="col-12 text-center">
             <div class="card_ card-bordered_">
                 <div class="card-header_">
-                    <script>connect()</script>
+                    <script>connect();
+                    </script>
                     <h4 class="card-title_" style="color: azure"><strong>Chat</strong></h4>
                 </div>
                 <div id="conversation" class="ps-container ps-theme-default ps-active-y"  style="overflow-y: scroll !important; height:400px !important;">
                     <div th:each="mes:${messages}">
-                        <div th:if="${mes.author}==${username}">
-                            <div  class="media media-chat"> <i class="fa fa-user"></i><div class="media-body"> <p th:text="${mes.author+': '+mes.content}"></p> <p class="meta"></p></div></div>
+                        <div th:if="${mes.getAuthorName()}==${username}">
+                            <div  class="media media-chat"> <i class="fa fa-user"></i><div class="media-body"> <p th:text="${mes.getAuthorName()+': '+mes.content}"></p> <p class="meta"></p></div></div>
                         </div>
-                        <div th:if="${mes.author}!=${username}">
-                            <div th:if="${mes.author}!=${username}" class="media media-chat media-chat-reverse"> <i class="fa fa-user"></i><div class="media-body"> <p th:text="${mes.author+': '+mes.content}"></p> <p class="meta"></p></div></div>
+                        <div th:if="${mes.getAuthorName()}!=${username}">
+                            <div th:if="${mes.getAuthorName()}!=${username}" class="media media-chat media-chat-reverse"> <i class="fa fa-user"></i><div class="media-body"> <p th:text="${mes.getAuthorName()+': '+mes.content}"></p> <p class="meta"></p></div></div>
                         </div>
                     </div>
                     <div id="greetings">
@@ -47,6 +48,9 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("conversation").scrollBy(0, document.getElementById("conversation").scrollHeight);
+</script>
 <div th:insert="~{footer :: footer-navbar}"></div>
 </body>
 </html>

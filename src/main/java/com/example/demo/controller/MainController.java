@@ -21,8 +21,7 @@ public class MainController {
     @GetMapping("/")
     public String Homepage(Model model, @AuthenticationPrincipal User user){
         User userBD = userRepo.findById(user.getId()).orElse(new User());
-        model.addAttribute("win",userBD.getWin());
-        model.addAttribute("def",userBD.getDef());
+        model.addAttribute("rating",userBD.getRating());
         model.addAttribute("username",userBD.getUsername());
         return "index";
     }

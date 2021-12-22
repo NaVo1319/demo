@@ -12,7 +12,7 @@ public class AI {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Double> list= new ArrayList<>();
     private String nameAi;
     private double oldState=0;
@@ -49,7 +49,7 @@ public class AI {
         else{
             ArrayList<Double> rewards=new ArrayList<>();
             GameTable cloneTable=new GameTable();
-            cloneTable.setTable(gameTable.getTable());
+            cloneTable.setMap(gameTable.getMap());
             double maxReward=0;
             ArrayList<Integer> indexSteps=new ArrayList<>();
             for(int i: free){

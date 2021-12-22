@@ -15,6 +15,11 @@ function setConnected(connected) {
 function connect() {
     var socket = new SockJS('/webs');
     stompClient = Stomp.over(socket);
+    socket.onclose = function() {
+        console.log('close');
+        stompClient.disconnect();
+        location.reload();
+    };
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
@@ -33,7 +38,7 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/webs", {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/app/webs", {}, JSON.stringify({'id':'null','author':$("#author").val(),'content': $("#name").val(),'time':'null'}));
     $("#name").val("")
 }
 
@@ -49,6 +54,7 @@ function showGreeting(message) {
             "<div class=\"media media-chat media-chat-reverse\"> <i class=\"fa fa-user\"></i><div class=\"media-body\"> <p>"+message+"</p> <p class=\"meta\"></p></div>"
         );
     }
+    document.getElementById("conversation").scrollBy(0, document.getElementById("conversation").scrollHeight);
 
 }
 

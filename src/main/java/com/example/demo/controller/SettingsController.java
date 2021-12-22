@@ -24,8 +24,7 @@ public class SettingsController {
     @GetMapping("/settings")
     public String settings(Model model, @AuthenticationPrincipal User user){
         User userBD = userRepo.findById(user.getId()).orElse(new User());
-        model.addAttribute("win",userBD.getWin());
-        model.addAttribute("def",userBD.getDef());
+        model.addAttribute("rating",userBD.getRating());
         List<AI> aiList = aiRepo.findAll();
         model.addAttribute("aiList",aiList);
         model.addAttribute("save_stat",0);
@@ -38,7 +37,7 @@ public class SettingsController {
         model.addAttribute("save_stat",1);
         System.out.println(nameAi+" "+difficulty);
         User userSet=userRepo.findById(user.getId()).orElse(new User());
-        userSet.setNameAi(nameAi);
+        userSet.setSelectedAi(aiRepo.findByNameAi(nameAi));
         userSet.setDifficultAi(difficulty);
         userRepo.save(userSet);
         return "settings";

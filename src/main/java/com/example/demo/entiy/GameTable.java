@@ -2,28 +2,36 @@ package com.example.demo.entiy;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Entity
 public class GameTable {
-    private String table="000000000";
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Column(length = 9)
+    private String map="000000000";
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
     public void set(int position,char value){
         if(position>8){
             System.out.println("Error 9<"+position);
             return;
         }
-        char[] charArray = table.toCharArray();
+        char[] charArray = map.toCharArray();
         charArray[position] = value;
-        table = new String(charArray);
+        map = new String(charArray);
     }
     public boolean isWin(char type){
         boolean isWin=true;
         for (int i=0;i<3;++i){
             isWin=true;
             for(int j=0;j<3;++j){
-                if(table.charAt(i*3+j)!=type){
+                if(map.charAt(i*3+j)!=type){
                     isWin=false;
                     break;
                 }
@@ -35,7 +43,7 @@ public class GameTable {
         for (int i=0;i<3;++i){
             isWin=true;
             for(int j=0;j<3;++j){
-                if(table.charAt(j*3+i)!=type){
+                if(map.charAt(j*3+i)!=type){
                     isWin=false;
                     break;
                 }
@@ -46,7 +54,7 @@ public class GameTable {
         }
         isWin=true;
         for(int i=0;i<3;i++){
-            if(table.charAt(i*3+i)!=type){
+            if(map.charAt(i*3+i)!=type){
                 isWin=false;
                 break;
             }
@@ -56,7 +64,7 @@ public class GameTable {
         }
         isWin=true;
         for(int i=0;i<3;i++){
-            if(table.charAt(i*3+2-i)!=type){
+            if(map.charAt(i*3+2-i)!=type){
                 isWin=false;
                 break;
             }
@@ -67,18 +75,18 @@ public class GameTable {
         return false;
     }
     public boolean pat(){
-        return !table.contains("0");
+        return !map.contains("0");
     }
     public ArrayList<Integer> getFree(){
         ArrayList<Integer> result=new ArrayList<>();
-        for (int i=0;i<table.length();++i){
-            if(table.charAt(i)=='0'){
+        for (int i=0;i<map.length();++i){
+            if(map.charAt(i)=='0'){
                 result.add(i);
             }
         }
         return result;
     }
     public void restart(){
-        table="000000000";
+        map="000000000";
     }
 }

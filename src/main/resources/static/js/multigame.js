@@ -1,20 +1,19 @@
 function SingleGame(num){
     const array=['11','12','13','21','22','23','31','32','33']
-    if(document.getElementById(num+"").getAttribute("name")==="0"){
+    if(document.getElementById(array[num]+"").getAttribute("name")==="0"){
         for (i=0;i<array.length;++i){
             document.getElementById(array[i]+'_').disabled = true
         }
-        document.getElementById(num+"").setAttribute("name","1")
-        document.getElementById(num+"").setAttribute("src","img/O.png")
+        document.getElementById(array[num]+"").setAttribute("name","1")
+        document.getElementById(array[num]+"").setAttribute("src"," http://localhost:8080/img/O.svg")
         $.ajax({
-            url: 'http://localhost:8080/singleplayer',
+            url: 'http://localhost:8080/gameroom/100',
             type: 'POST',
-            data: num+"",
+            data: num+" 100",
             contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
+            dataType: 'text',
             async: true,
             success: function(data) {
-                console.log(data)
                 if (parseInt(data,10)==20){
                     console.log("Win")
                     for(i=1;i<4;++i){
@@ -51,30 +50,12 @@ function SingleGame(num){
                 else{
                     console.log(array[parseInt(data,10)])
                     document.getElementById(array[parseInt(data,10)]).setAttribute("name","2")
-                    document.getElementById(array[parseInt(data,10)]).setAttribute("src","img/X.png")
+                    document.getElementById(array[parseInt(data,10)]).setAttribute("src","img/X2.svg")
+                }
+                for (i=0;i<array.length;++i){
+                    document.getElementById(array[i]+'_').disabled = false
                 }
             }
         });
-        for (i=0;i<array.length;++i){
-            document.getElementById(array[i]+'_').disabled = false
-        }
     }
-}
-function showModalWin(id) {
-
-    var darkLayer = document.createElement('div'); // слой затемнения
-    darkLayer.id = 'shadow'; // id чтобы подхватить стиль
-    document.body.appendChild(darkLayer); // включаем затемнение
-
-    var modalWin = document.getElementById(id); // находим наше "окно"
-    modalWin.style.display = 'block'; // "включаем" его
-
-    darkLayer.onclick = function () {  // при клике на слой затемнения все исчезнет
-        darkLayer.parentNode.removeChild(darkLayer); // удаляем затемнение
-        modalWin.style.display = 'none'; // делаем окно невидимым
-        return false;
-    };
-}
-function waitCreate(){
-    setTimeout(showModalWin,1000)
 }
